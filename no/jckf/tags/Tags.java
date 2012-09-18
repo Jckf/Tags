@@ -8,31 +8,34 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Tags extends JavaPlugin implements Listener {
     public void onEnable() {
-        getServer().getPluginManager().registerEvents(this,this);
+		PluginManager pm = getServer().getPluginManager();
+
+        pm.registerEvents(this,this);
+
+		if (pm.getPlugin("TagAPI") != null) {
+			pm.registerEvents(new TagApiListener(),this);
+		}
 
         for (Player player : getServer().getOnlinePlayers()) {
             if (player.isOp()) {
                 tag(player);
             }
         }
-
-        getLogger().info("Enabled.");
     }
 
     public void onDisable() {
         for (Player player : getServer().getOnlinePlayers()) {
             untag(player);
         }
-
-        getLogger().info("Disabled.");
     }
 
     public void tag(Player player) {
-        player.setDisplayName(ChatColor.RED + player.getName() + ChatColor.WHITE);
+        player.setDisplayName(ChatColor.RED + player.getName() + ChatColor.RESET);
         player.setPlayerListName(ChatColor.RED + player.getName());
     }
 
