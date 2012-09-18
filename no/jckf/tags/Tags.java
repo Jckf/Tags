@@ -12,37 +12,37 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Tags extends JavaPlugin implements Listener {
-    public void onEnable() {
+	public void onEnable() {
 		PluginManager pm = getServer().getPluginManager();
 
-        pm.registerEvents(this,this);
+		pm.registerEvents(this,this);
 
 		if (pm.getPlugin("TagAPI") != null) {
 			pm.registerEvents(new TagApiListener(),this);
 		}
 
-        for (Player player : getServer().getOnlinePlayers()) {
-            if (player.isOp()) {
-                tag(player);
-            }
-        }
-    }
+		for (Player player : getServer().getOnlinePlayers()) {
+			if (player.isOp()) {
+				tag(player);
+			}
+		}
+	}
 
-    public void onDisable() {
-        for (Player player : getServer().getOnlinePlayers()) {
-            untag(player);
-        }
-    }
+	public void onDisable() {
+		for (Player player : getServer().getOnlinePlayers()) {
+			untag(player);
+		}
+	}
 
-    public void tag(Player player) {
-        player.setDisplayName(ChatColor.RED + player.getName() + ChatColor.RESET);
-        player.setPlayerListName(ChatColor.RED + player.getName());
-    }
+	public void tag(Player player) {
+		player.setDisplayName(ChatColor.RED + player.getName() + ChatColor.RESET);
+		player.setPlayerListName(ChatColor.RED + player.getName());
+	}
 
-    public void untag(Player player) {
-        player.setDisplayName(player.getName());
-        player.setPlayerListName(player.getName());
-    }
+	public void untag(Player player) {
+		player.setDisplayName(player.getName());
+		player.setPlayerListName(player.getName());
+	}
 
 	public boolean onCommand(CommandSender sender,Command command,String label,String[] args) {
 		if (!sender.isOp()) {
@@ -74,12 +74,12 @@ public class Tags extends JavaPlugin implements Listener {
 		return true;
 	}
 
-    @EventHandler
-    public void onLogin(PlayerLoginEvent event) {
+	@EventHandler
+	public void onLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 
-        if (player.isOp()) {
+		if (player.isOp()) {
 			tag(player);
 		}
-    }
+	}
 }
