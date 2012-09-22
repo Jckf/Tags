@@ -8,7 +8,6 @@ import org.kitteh.tag.PlayerReceiveNameTagEvent;
 public class TagApiListener implements Listener {
 	@EventHandler
 	public void onVisible(PlayerReceiveNameTagEvent event) {
-		Bukkit.getLogger().info("onVisible()");
 		event.setTag(event.getNamedPlayer().getPlayerListName());
 	}
 }
